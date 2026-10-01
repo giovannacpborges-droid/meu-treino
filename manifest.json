@@ -1,0 +1,10 @@
+{
+  "name": "Meu Treino • Gi",
+  "short_name": "Meu Treino",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f2ef",
+  "theme_color": "#765d6d",
+  "lang": "pt-BR",
+  "icons": []
+}

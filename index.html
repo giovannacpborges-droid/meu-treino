@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#7f6676">
+<meta name="description" content="Meu Treino — acompanhamento de musculação, corrida e Fit Dance">
+<link rel="manifest" href="manifest.json">
+<title>Meu Treino • Gi</title>
+<style>
+:root{
+ --bg:#f7f2ef;--card:#fffaf7;--ink:#3f3540;--muted:#817681;--rose:#b58b9b;
+ --rose2:#d9bcc7;--lilac:#aaa0b6;--sage:#9eae9b;--line:#e7dfe2;--plum:#765d6d;
+ --shadow:0 10px 28px rgba(88,67,79,.10);--radius:20px;
+}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#fbf7f5 0,#f5eff1 100%);
+font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink)}
+button,input,select,textarea{font:inherit} button{cursor:pointer}
+.app{max-width:1120px;margin:auto;padding:18px 16px 90px}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}
+.brand{display:flex;gap:12px;align-items:center}.tulip{font-size:32px}.brand h1{margin:0;font-size:22px}.brand p{margin:3px 0 0;color:var(--muted);font-size:12px}
+.iconbtn,.ghost{border:1px solid var(--line);background:var(--card);color:var(--plum);border-radius:14px;padding:10px 12px}
+.nav{display:flex;gap:8px;overflow:auto;padding-bottom:8px;margin-bottom:16px}
+.nav button{border:0;background:transparent;padding:10px 13px;border-radius:14px;color:var(--muted);white-space:nowrap}
+.nav button.active{background:var(--plum);color:#fff}
+.view{display:none}.view.active{display:block}
+.hero{background:linear-gradient(135deg,#eee2e7,#f9f4f2 60%,#e9e5ec);border:1px solid var(--line);border-radius:28px;padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero:after{content:"🌷";position:absolute;right:22px;bottom:-6px;font-size:70px;opacity:.22}
+.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:11px;color:var(--plum);font-weight:800}
+.hero h2{font-size:30px;margin:6px 0}.hero p{max-width:650px;color:var(--muted);margin:0 0 16px}
+.row{display:flex;gap:10px;flex-wrap:wrap}.primary{border:0;background:var(--plum);color:#fff;border-radius:14px;padding:12px 16px;font-weight:700}
+.secondary{border:0;background:#fff;border:1px solid var(--line);color:var(--plum);border-radius:14px;padding:12px 16px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{background:rgba(255,250,247,.92);border:1px solid var(--line);border-radius:var(--radius);padding:17px;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:25px}.stat span{font-size:12px;color:var(--muted)}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:20px 0 10px}.section-title h3{margin:0}
+.badge{display:inline-flex;padding:5px 9px;border-radius:999px;background:#eee5e9;color:var(--plum);font-size:11px;font-weight:800}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0}
+input,select,textarea{width:100%;border:1px solid var(--line);background:#fffdfa;color:var(--ink);border-radius:12px;padding:10px 11px;outline:none}
+textarea{min-height:90px;resize:vertical}.small{font-size:12px;color:var(--muted)}
+label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px;font-weight:700}
+.field{flex:1;min-width:130px}.datebar{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:end}
+.exercise{border:1px solid var(--line);border-radius:16px;padding:14px;margin:9px 0;background:#fffdfa}
+.ex-head{display:flex;justify-content:space-between;gap:8px}.ex-head strong{font-size:14px}.presc{font-size:12px;color:var(--muted);margin-top:3px}
+.sets{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:10px}.set label{font-size:10px}
+.done{accent-color:var(--sage);transform:scale(1.1)}.totalline{display:flex;justify-content:space-between;margin-top:10px;font-size:12px;color:var(--muted)}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.kpi .card{padding:14px}.kpi b{font-size:21px}
+.runbox{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.runbox .field{min-width:0}
+.timer{font-size:42px;text-align:center;font-variant-numeric:tabular-nums;margin:10px}.timerbox{text-align:center}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.calhead{text-align:center;font-size:10px;color:var(--muted);padding:5px}.day{min-height:70px;background:#fffdfa;border:1px solid var(--line);border-radius:12px;padding:7px;font-size:11px}.day.muted{opacity:.35}.day.today{outline:2px solid var(--rose)}.day.has{background:#f0e7eb}.day b{display:block}.dot{width:7px;height:7px;border-radius:50%;background:var(--sage);display:inline-block;margin-right:4px}
+.table{width:100%;border-collapse:collapse;font-size:12px}.table th,.table td{border-bottom:1px solid var(--line);padding:8px;text-align:left}.table th{color:var(--muted)}
+.bar{height:9px;border-radius:99px;background:#eee7e9;overflow:hidden}.bar i{display:block;height:100%;background:var(--rose);border-radius:99px}
+.note{background:#f1ebe9;border-left:4px solid var(--rose);padding:12px;border-radius:10px;font-size:12px;color:#655963}
+.accordion{border:1px solid var(--line);border-radius:16px;margin:8px 0;background:#fffdfa;overflow:hidden}.accordion summary{padding:14px;font-weight:800;cursor:pointer}.accordion .inside{padding:0 14px 14px;color:var(--muted);font-size:13px;line-height:1.55}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:white;padding:11px 16px;border-radius:999px;display:none;z-index:99}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:rgba(255,250,247,.95);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 10px;display:flex;justify-content:center;z-index:50}
+.bottom span{font-size:11px;color:var(--muted)}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.runbox{grid-template-columns:1fr}.datebar{grid-template-columns:1fr 1fr}.sets{grid-template-columns:repeat(2,1fr)}.hero h2{font-size:25px}}
+@media(min-width:761px){.bottom{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+ <div class="brand"><div class="tulip">🌷</div><div><h1>Meu Treino</h1><p>Seu ciclo de 12 semanas, organizado por dia.</p></div></div>
+ <button class="iconbtn" onclick="showView('perfil')">⚙️</button>
+</header>
+<nav class="nav" id="nav"></nav>
+
+<main>
+<section id="home" class="view active"></section>
+<section id="treino" class="view"></section>
+<section id="corrida" class="view"></section>
+<section id="dance" class="view"></section>
+<section id="calendario" class="view"></section>
+<section id="evolucao" class="view"></section>
+<section id="orientacoes" class="view"></section>
+<section id="perfil" class="view"></section>
+</main>
+</div>
+<div class="toast" id="toast"></div>
+<div class="bottom">🌷 <span>&nbsp;Meu Treino • dados salvos neste aparelho</span></div>
+
+<script>
+const strength = {
+"Segunda — Costas e ombros":[
+["Puxada frontal","3x12–15","4x8–12","4x6–8"],["Remada baixa","3x12–15","4x8–12","4x6–8"],
+["Remada unilateral com halter — cada lado","3x12","4x10","4x8"],["Desenvolvimento com halteres","3x12–15","4x8–12","4x6–8"],
+["Elevação lateral","3x12–15","3x12–15","3x15"],["Crucifixo inverso","3x12–15","3x12–15","3x15"]],
+"Terça — Glúteos e posterior de coxa":[
+["Elevação pélvica — PAUSA F3","3x12–15","4x8–12","4x6–8"],["Agachamento búlgaro — cada perna","3x12","4x10","4x8"],
+["Stiff com halteres","3x12–15","4x8–12","4x6–8"],["Mesa ou cadeira flexora","3x12–15","3x12–15","3x15"],
+["Cadeira abdutora","3x15","3x15–20","3x20"],["Coice no cabo — cada perna","3x12","3x15","3x15"]],
+"Quarta — Abdômen e core":[
+["Prancha","3x30–40s","3x45–50s","até 60s"],["Elevação de pernas (infra)","3x12","3x15","15"],
+["Abdominal na polia — F2 mais carga","3x12","3x15","15"],["Prancha lateral — cada lado","3x20–30s","3x30–40s","até 45s"],
+["Pallof press — cada lado","3x10","3x12","12"],["Dead bug — cada lado","3x8","3x10","12"]],
+"Quinta — Quadríceps e glúteos":[
+["Agachamento livre/smith — PAUSA F3","3x12–15","4x8–12","4x6–8"],["Leg press 45°","3x12–15","4x8–12","4x6–8"],
+["Afundo andando — cada perna","3x12","4x10","4x8"],["Cadeira extensora","3x12–15","3x12–15","3x15"],
+["Hip thrust unilateral — cada perna, PAUSA F3","3x12","3x15","3x15"],["Panturrilha em pé","3x15","3x15–20","3x20"]],
+"Sexta — Costas, ombros e abdômen":[
+["Remada curvada com barra","3x12–15","4x8–12","4x6–8"],["Pullover no cabo","3x12–15","3x12–15","3x15"],
+["Desenvolvimento Arnold","3x12","4x8–12","4x6–8"],["Elevação lateral no cabo","3x12–15","3x12–15","3x15"],
+["Elevação frontal","3x12","3x12–15","3x15"],["Abdominal bicicleta","3x16","3x20","3x24"]]
+};
+const runs = [
+[1,19, [["Segunda","5 km — 6x (1 min forte + 2 min leve)","Leve + forte",5],["Quarta","Rodagem leve","Leve",4],["Sábado","Longão","Leve",6],["Domingo","Regenerativo","Leve",4]]],
+[2,20,[["Segunda","5 km — 8x (1 min forte + 2 min leve)","Leve + forte",5],["Quarta","Rodagem leve","Leve",4],["Sábado","Longão","Leve",7],["Domingo","Regenerativo","Leve",4]]],
+[3,22.5,[["Segunda","5,5 km — 8x (1min30 forte + 1min30 leve)","Leve + forte",5.5],["Quarta","Rodagem leve","Leve",5],["Sábado","Longão","Leve",8],["Domingo","Regenerativo","Leve",4]]],
+[4,17,[["Segunda","Rodagem leve","Leve",4],["Quarta","Rodagem leve","Leve",4],["Sábado","TESTE 5 KM (1 km leve antes)","Máximo",6],["Domingo","Regenerativo","Leve",3]]],
+[5,23,[["Segunda","6x 400 m forte | 2 min trotando entre eles","Leve + forte",6],["Quarta","Rodagem leve","Leve",5],["Sábado","Longão","Leve",8],["Domingo","Regenerativo","Leve",4]]],
+[6,25.5,[["Segunda","5x 600 m forte | 2 min trotando","Leve + forte",6.5],["Quarta","Rodagem leve","Leve",5],["Sábado","Longão","Leve",9],["Domingo","Regenerativo","Leve",5]]],
+[7,28.5,[["Segunda","4x 1 km forte | 2min30 trotando","Leve + forte",7.5],["Quarta","Rodagem leve","Leve",6],["Sábado","Longão","Leve",10],["Domingo","Regenerativo","Leve",5]]],
+[8,18,[["Segunda","Rodagem leve","Leve",5],["Quarta","Rodagem leve","Leve",4],["Sábado","TESTE 5 KM (1 km leve antes)","Máximo",6],["Domingo","Regenerativo","Leve",3]]],
+[9,28.5,[["Segunda","3x 1,5 km moderado | 2 min trotando","Leve + moderado",7.5],["Quarta","Rodagem leve","Leve",6],["Sábado","Longão, último km moderado","Leve + moderado",10],["Domingo","Regenerativo","Leve",5]]],
+[10,30,[["Segunda","2x 2,5 km moderado | 2 min trotando","Leve + moderado",8],["Quarta","Rodagem leve","Leve",6],["Sábado","Longão, últimos 2 km moderados","Leve + moderado",11],["Domingo","Regenerativo","Leve",5]]],
+[11,30.5,[["Segunda","5 km contínuos no moderado","Leve + moderado",7.5],["Quarta","Rodagem leve","Leve",6],["Sábado","Longão, últimos 2 km moderados","Leve + moderado",12],["Domingo","Regenerativo","Leve",5]]],
+[12,18,[["Segunda","Rodagem leve + 4 acelerações de 20s","Leve",5],["Quarta","Rodagem leve","Leve",4],["Sábado","TESTE FINAL 5 KM","Máximo",6],["Domingo","Regenerativo","Leve",3]]]
+];
+const phases = w=>w<=4?1:w<=8?2:3;
+const phaseName = p=>p===1?"Base":p===2?"Construção / Velocidade":"Força e definição / Ritmo";
+const key=()=>new Date().toISOString().slice(0,10);
+let db=JSON.parse(localStorage.getItem("meuTreinoGi")||"null")||{
+startDate:"", week:1, records:{}, tests:{}, measures:[], settings:{name:"Gi"}, dance:{}
+};
+function save(){localStorage.setItem("meuTreinoGi",JSON.stringify(db));}
+function rec(d=key()){return db.records[d] ||= {ex:{},run:{},dance:null,energy:"",rpe:"",pain:"",notes:""}}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function toast(t){let x=document.getElementById("toast");x.textContent=t;x.style.display="block";setTimeout(()=>x.style.display="none",1800)}
+function fmtPace(km,time){if(!km||!time)return "—";let m=/^(\d+):(\d{1,2})$/.exec(time.trim());if(!m)return "—";let sec=+m[1]*60 + +m[2];let p=sec/+km;return `${Math.floor(p/60)}:${String(Math.round(p%60)).padStart(2,"0")}/km`}
+function weekForDate(date){
+ if(!db.startDate)return db.week||1;
+ let a=new Date(db.startDate+"T12:00:00"), b=new Date(date+"T12:00:00");
+ let w=Math.floor((b-a)/604800000)+1; return Math.max(1,Math.min(12,w));
+}
+function dayName(date){return new Intl.DateTimeFormat("pt-BR",{weekday:"long"}).format(new Date(date+"T12:00:00"))}
+function nav(){
+ const items=[["home","Início"],["treino","Treino"],["corrida","Corrida"],["dance","Fit Dance"],["calendario","Calendário"],["evolucao","Evolução"],["orientacoes","Orientações"]];
+ document.getElementById("nav").innerHTML=items.map(x=>`<button id="n-${x[0]}" onclick="showView('${x[0]}')">${x[1]}</button>`).join("");
+}
+function showView(id){
+ document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+ let b=document.getElementById("n-"+id); if(b)b.classList.add("active");
+ render(id);
+}
+function dailyStats(date=key()){
+ let r=rec(date), vol=0, exdone=0;
+ Object.values(r.ex||{}).forEach(e=>{let v=(e.sets||[]).reduce((s,z)=>s+(+z.kg||0)*(+z.reps||0),0);vol+=v;if(e.done)exdone++});
+ return {vol,exdone,km:+(r.run?.km||0),dance:+(r.dance||0)};
+}
+function renderHome(){
+ let d=key(), w=weekForDate(d), r=rec(d), st=dailyStats(d), run=runs[w-1], dow=new Intl.DateTimeFormat("pt-BR",{weekday:"long"}).format(new Date(d+"T12:00:00"));
+ let runToday=run?.[2].find(x=>x[0].toLowerCase().startsWith(dow.slice(0,3)));
+ document.getElementById("home").innerHTML=`
+ <div class="hero"><div class="eyebrow">Hoje • ${new Date(d+"T12:00:00").toLocaleDateString("pt-BR")}</div>
+ <h2>Oi, ${esc(db.settings.name||"Gi")} 🌷</h2>
+ <p>Semana ${w} de 12 · Fase ${phases(w)} — ${phaseName(phases(w))}. Seu treino fica registrado por dia, sem misturar semanas.</p>
+ <div class="row"><button class="primary" onclick="showView('treino')">Começar musculação</button><button class="secondary" onclick="showView('corrida')">Registrar corrida</button></div></div>
+ <div class="grid">
+ <div class="card stat"><span>Volume hoje</span><b>${Math.round(st.vol)} kg</b><span>carga × repetições</span></div>
+ <div class="card stat"><span>Corrida hoje</span><b>${st.km||0} km</b><span>registrado</span></div>
+ <div class="card stat"><span>Fit Dance</span><b>${st.dance||0} min</b><span>registrado</span></div>
+ <div class="card stat"><span>Exercícios feitos</span><b>${st.exdone}</b><span>marcados</span></div></div>
+ <div class="section-title"><h3>Treino de hoje</h3><span class="badge">Semana ${w}</span></div>
+ <div class="card"><b>${strength[dow==="segunda-feira"?"Segunda — Costas e ombros":dow==="terça-feira"?"Terça — Glúteos e posterior de coxa":dow==="quarta-feira"?"Quarta — Abdômen e core":dow==="quinta-feira"?"Quinta — Quadríceps e glúteos":dow==="sexta-feira"?"Sexta — Costas, ombros e abdômen":"Dia livre de musculação" ]||"Dia livre"}</b>
+ ${runToday?`<p class="small" style="margin-bottom:0">🏃 ${esc(runToday[1])} · ${runToday[3]} km</p>`:"<p class=\"small\">Sem corrida prescrita para hoje.</p>"}</div>
+ <div class="section-title"><h3>Meu dia</h3><button class="ghost" onclick="showView('treino')">Abrir registro</button></div>
+ <div class="card"><div class="kpi"><div><span class="small">Energia</span><b>${r.energy||"—"}</b></div><div><span class="small">RPE</span><b>${r.rpe||"—"}</b></div><div><span class="small">Dor</span><b>${r.pain||"—"}</b></div></div></div>`;
+}
+function renderTreino(){
+ let d=key(), w=weekForDate(d), p=phases(w), dow=new Intl.DateTimeFormat("pt-BR",{weekday:"long"}).format(new Date(d+"T12:00:00"));
+ let title={"segunda-feira":"Segunda — Costas e ombros","terça-feira":"Terça — Glúteos e posterior de coxa","quarta-feira":"Quarta — Abdômen e core","quinta-feira":"Quinta — Quadríceps e glúteos","sexta-feira":"Sexta — Costas, ombros e abdômen"}[dow];
+ let arr=title?strength[title]:[];
+ let r=rec(d), content=arr.map((e,i)=>{
+   let x=r.ex[i]||{sets:[]}, sets=3; let spec=e[p]; let m=spec.match(/(\d+)/); sets=m?+m[1]:3; if([4,8,12].includes(w))sets=2;
+   let html=`<div class="exercise"><div class="ex-head"><div><strong>${i+1}. ${esc(e[0])}</strong><div class="presc">Prescrição F${p}: ${e[p]}${[4,8,12].includes(w)?" · semana de recuperação: 2 séries":""}</div></div><label><input class="done" type="checkbox" ${x.done?"checked":""} onchange="setDone('${d}',${i},this.checked)"> feito</label></div>
+   <div class="sets">${Array.from({length:sets},(_,s)=>`<div class="set"><label>S${s+1} kg</label><input type="number" min="0" step="0.5" value="${x.sets?.[s]?.kg??""}" onchange="setSet('${d}',${i},${s},'kg',this.value)"><label>reps</label><input type="number" min="0" step="1" value="${x.sets?.[s]?.reps??""}" onchange="setSet('${d}',${i},${s},'reps',this.value)"></div>`).join("")}</div>
+   <div class="totalline"><span>Volume do exercício</span><b>${Math.round((x.sets||[]).reduce((a,z)=>a+(+z.kg||0)*(+z.reps||0),0))} kg</b></div></div>`; return html;}).join("");
+ document.getElementById("treino").innerHTML=`<div class="section-title"><h2>Musculação</h2><span class="badge">F${p} · ${phaseName(p)}</span></div>
+ <div class="card datebar"><div><label>Data do registro</label><input type="date" value="${d}" onchange="changeDate(this.value)"></div><div><label>Semana</label><select onchange="db.week=+this.value;save();renderTreino()">${Array.from({length:12},(_,i)=>`<option ${w===i+1?"selected":""}>${i+1}</option>`).join("")}</select></div><div><label>Descanso</label><button class="secondary" onclick="startTimer(${p===1?60:p===2?90:120})">⏱️ ${p===1?60:p===2?90:"2 min"}</button></div></div>
+ ${title?`<div class="note">Aquecimento: 5–10 min + 1 série leve do primeiro exercício. Progressão: semana 1 encontre a carga; semana 2 tente o máximo de reps; semana 3 suba a carga se bater o máximo; semana 4 faça 2 séries com a carga da semana 1.</div>${content}`:`<div class="card"><h3>Hoje é dia de corrida/recuperação</h3><p class="small">Não há musculação prescrita no plano para este dia.</p></div>`}
+ <div class="section-title"><h3>Meu dia</h3></div>
+ <div class="card"><div class="grid2"><div><label>Energia (1–5)</label><input value="${esc(r.energy)}" placeholder="Ex.: 4" onchange="saveField('${d}','energy',this.value)"></div><div><label>RPE / esforço (1–10)</label><input value="${esc(r.rpe)}" placeholder="Ex.: 8" onchange="saveField('${d}','rpe',this.value)"></div><div><label>Dor/desconforto</label><input value="${esc(r.pain)}" placeholder="Ex.: sem dor" onchange="saveField('${d}','pain',this.value)"></div><div><label>Observações</label><textarea onchange="saveField('${d}','notes',this.value)">${esc(r.notes)}</textarea></div></div></div>`;
+}
+function setSet(d,i,s,k,v){let r=rec(d);r.ex[i] ||= {sets:[]};r.ex[i].sets[s] ||= {};r.ex[i].sets[s][k]=+v||0;save();renderTreino()}
+function setDone(d,i,v){let r=rec(d);r.ex[i] ||= {sets:[]};r.ex[i].done=v;save();renderTreino()}
+function saveField(d,k,v){rec(d)[k]=v;save();renderHome()}
+function changeDate(v){key=v; renderTreino()}
+function startTimer(sec){let end=Date.now()+sec*1000;let w=window.open("","_blank","width=360,height=420"); if(!w){alert("Permita a janela do cronômetro.");return}
+w.document.write(`<body style="font-family:system-ui;text-align:center;padding:40px;background:#f7f2ef;color:#3f3540"><h2>Descanso</h2><div id="t" style="font-size:64px;margin:40px">00:${String(sec).padStart(2,"0")}</div><button onclick="window.close()" style="padding:12px 20px;border:0;border-radius:12px">Fechar</button><script>let e=${end};setInterval(()=>{let s=Math.max(0,Math.ceil((e-Date.now())/1000));document.getElementById('t').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')},200);<\/script></body>`);
+}
+function renderCorrida(){
+ let d=key(),w=weekForDate(d),p=phases(w),r=rec(d), plan=runs[w-1][2].map(x=>`<div class="card"><b>${x[0]} · ${x[3]} km</b><p>${esc(x[1])}</p><span class="badge">${x[2]}</span></div>`).join("");
+ document.getElementById("corrida").innerHTML=`<div class="section-title"><h2>Corrida</h2><span class="badge">Semana ${w} · ${runs[w-1][1]} km planejados</span></div>
+ <div class="card"><label>Data</label><input type="date" value="${d}" onchange="changeDateRun(this.value)"></div>
+ <div class="section-title"><h3>Treinos da semana</h3></div><div class="grid2">${plan}</div>
+ <div class="section-title"><h3>Registrar corrida realizada</h3></div>
+ <div class="card"><div class="runbox"><div class="field"><label>Distância (km)</label><input id="rkm" type="number" step="0.01" value="${r.run?.km||""}"></div><div class="field"><label>Tempo (mm:ss)</label><input id="rtime" placeholder="33:00" value="${r.run?.time||""}"></div><div class="field"><label>Pace calculado</label><input disabled value="${fmtPace(r.run?.km,r.run?.time)}"></div></div>
+ <div class="grid2" style="margin-top:10px"><div><label>Como se sentiu?</label><input id="rsense" value="${esc(r.run?.sense||"")}"></div><div><label>Terreno</label><input id="rterrain" value="${esc(r.run?.terrain||"")}"></div></div>
+ <button class="primary" style="margin-top:12px" onclick="saveRun()">Salvar corrida</button></div>
+ <div class="section-title"><h3>Calculadora de pace</h3></div>
+ <div class="card"><div class="runbox"><div><label>Distância</label><input id="ckm" type="number" step=".01" placeholder="5"></div><div><label>Tempo</label><input id="ctime" placeholder="31:30"></div><div><label>Pace</label><div id="cpace" class="card" style="padding:10px">—</div></div></div><button class="secondary" style="margin-top:10px" onclick="calcPace()">Calcular</button></div>
+ <div class="section-title"><h3>Seus ritmos de referência</h3></div><div class="grid"><div class="card stat"><span>Leve</span><b>7:45–8:15</b><span>/km</span></div><div class="card stat"><span>Moderado</span><b>6:55–7:05</b><span>/km</span></div><div class="card stat"><span>Forte</span><b>6:15–6:30</b><span>/km</span></div><div class="card stat"><span>Meta</span><b>6:05–6:12</b><span>/km</span></div></div>`;
+}
+function changeDateRun(v){window._runDate=v;renderCorrida()}
+function saveRun(){let d=window._runDate||key(),r=rec(d);r.run={km:+document.getElementById("rkm").value||0,time:document.getElementById("rtime").value,sense:document.getElementById("rsense").value,terrain:document.getElementById("rterrain").value};save();toast("Corrida salva 🌷");renderCorrida()}
+function calcPace(){let x=fmtPace(document.getElementById("ckm").value,document.getElementById("ctime").value);document.getElementById("cpace").textContent=x}
+function renderDance(){
+ let d=key(),r=rec(d),day=new Date(d+"T12:00:00").getDay(),scheduled=[1,3,5].includes(day);
+ document.getElementById("dance").innerHTML=`<div class="section-title"><h2>Fit Dance</h2><span class="badge">${scheduled?"Dia previsto":"Dia livre"}</span></div>
+ <div class="card"><p>Registro separado da musculação e da corrida.</p><div class="field"><label>Data</label><input type="date" value="${d}" onchange="window._danceDate=this.value;renderDance()"></div><div class="field" style="margin-top:10px"><label>Duração (minutos)</label><input id="danceMin" type="number" value="${r.dance||""}" placeholder="Ex.: 50"></div><button class="primary" style="margin-top:10px" onclick="saveDance()">Salvar Fit Dance</button></div>`;
+}
+function saveDance(){let d=window._danceDate||key();rec(d).dance=+document.getElementById("danceMin").value||0;save();toast("Fit Dance salvo");renderDance()}
+function renderCalendar(){
+ let now=new Date(), y=now.getFullYear(),m=now.getMonth(), first=new Date(y,m,1), days=new Date(y,m+1,0).getDate(),start=first.getDay(), cells=[];
+ for(let i=0;i<start;i++)cells.push(`<div class="day muted"></div>`);
+ for(let n=1;n<=days;n++){let d=`${y}-${String(m+1).padStart(2,"0")}-${String(n).padStart(2,"0")}`,st=dailyStats(d),has=st.vol||st.km||st.dance;cells.push(`<div class="day ${d===key()?"today":""} ${has?"has":""}" onclick="openDate('${d}')"><b>${n}</b>${has?`<span class="dot"></span>${st.km?st.km+"km ":""}${st.vol?Math.round(st.vol)+"kg":""}`:""}</div>`)}
+ document.getElementById("calendario").innerHTML=`<div class="section-title"><h2>Calendário</h2><span class="badge">${now.toLocaleDateString("pt-BR",{month:"long"})}</span></div><div class="card"><div class="calendar">${["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"].map(x=>`<div class="calhead">${x}</div>`).join("")}${cells.join("")}</div></div><div class="note" style="margin-top:12px">Os dias preenchidos têm algum registro salvo neste aparelho.</div>`;
+}
+function openDate(d){window._selectedDate=d;toast("Data selecionada: "+new Date(d+"T12:00:00").toLocaleDateString("pt-BR"));showView("treino")}
+function renderEvolution(){
+ let records=Object.entries(db.records).sort((a,b)=>a[0].localeCompare(b[0])), totalKm=records.reduce((s,[,r])=>s+(+r.run?.km||0),0),totalVol=records.reduce((s,[,r])=>s+dailyStats(arguments[0]||undefined).vol,0);
+ let weeks=runs.map(x=>{let km=records.filter(([d])=>weekForDate(d)===x[0]).reduce((s,[d])=>s+dailyStats(d).km,0);return {...x,done:km}});
+ let tests=Object.entries(db.tests).map(([w,v])=>`<tr><td>Semana ${w}</td><td>${esc(v.time||"—")}</td><td>${esc(v.pace||"—")}</td></tr>`).join("");
+ document.getElementById("evolucao").innerHTML=`<div class="section-title"><h2>Evolução</h2><button class="secondary" onclick="exportPNG()">Exportar PNG</button></div>
+ <div class="grid"><div class="card stat"><span>Km registrados</span><b>${totalKm.toFixed(1)}</b><span>no histórico</span></div><div class="card stat"><span>Volume de força</span><b>${Math.round(records.reduce((s,[d])=>s+dailyStats(d).vol,0))}</b><span>kg×reps</span></div><div class="card stat"><span>Registros</span><b>${records.length}</b><span>dias</span></div><div class="card stat"><span>Testes</span><b>${Object.keys(db.tests).length}</b><span>5 km</span></div></div>
+ <div class="section-title"><h3>Quilometragem por semana</h3></div><div class="card">${weeks.map(x=>`<div style="margin:10px 0"><div class="small">S${x[0]} · ${x[1]} km planejados · ${x.done.toFixed(1)} km feitos</div><div class="bar"><i style="width:${Math.min(100,(x.done/x[1])*100)}%"></i></div></div>`).join("")}</div>
+ <div class="section-title"><h3>Testes de 5 km</h3></div><div class="card"><div class="grid2"><div><label>Semana</label><select id="tw">${[4,8,12].map(x=>`<option>${x}</option>`).join("")}</select></div><div><label>Tempo</label><input id="tt" placeholder="31:30"></div></div><button class="secondary" style="margin-top:10px" onclick="saveTest()">Salvar teste e calcular ritmos</button><table class="table" style="margin-top:12px"><tr><th>Teste</th><th>Tempo</th><th>Pace</th></tr>${tests||"<tr><td colspan=3>Nenhum teste registrado.</td></tr>"}</table></div>
+ <div class="section-title"><h3>Medidas</h3></div><div class="card"><div class="grid2"><div><label>Data</label><input id="md" type="date" value="${key()}"></div><div><label>Peso (kg)</label><input id="mw" type="number" step=".1"></div><div><label>Cintura (cm)</label><input id="mc"></div><div><label>Quadril (cm)</label><input id="mh"></div><div><label>Coxa (cm)</label><input id="mt"></div><div><label>Braço (cm)</label><input id="ma"></div></div><button class="secondary" style="margin-top:10px" onclick="saveMeasure()">Salvar medidas</button></div>
+ <div class="section-title"><h3>Histórico de medidas</h3></div><div class="card"><table class="table"><tr><th>Data</th><th>Peso</th><th>Cint.</th><th>Quadril</th><th>Coxa</th><th>Braço</th></tr>${db.measures.slice().reverse().map(x=>`<tr><td>${new Date(x.date+"T12:00:00").toLocaleDateString("pt-BR")}</td><td>${x.weight||"—"}</td><td>${x.waist||"—"}</td><td>${x.hip||"—"}</td><td>${x.thigh||"—"}</td><td>${x.arm||"—"}</td></tr>`).join("")||"<tr><td colspan=6>Nenhuma medida.</td></tr>"}</table></div>`;
+}
+function saveTest(){let w=document.getElementById("tw").value,t=document.getElementById("tt").value;db.tests[w]={time:t,pace:fmtPace(5,t)};save();toast("Teste salvo");renderEvolution()}
+function saveMeasure(){db.measures.push({date:document.getElementById("md").value,weight:document.getElementById("mw").value,waist:document.getElementById("mc").value,hip:document.getElementById("mh").value,thigh:document.getElementById("mt").value,arm:document.getElementById("ma").value});save();toast("Medidas salvas");renderEvolution()}
+function renderOrientacoes(){
+ document.getElementById("orientacoes").innerHTML=`<div class="section-title"><h2>Orientações</h2><span class="badge">Fonte: seus planos</span></div>
+ <details class="accordion" open><summary>Como funciona o ciclo de musculação</summary><div class="inside">Os exercícios permanecem ao longo das 12 semanas; mudam séries, repetições, carga e descanso. São 3 fases de 4 semanas.</div></details>
+ <details class="accordion"><summary>F1 — Base · semanas 1–4</summary><div class="inside">Objetivo: aprender técnica, adaptar articulações e tendões e encontrar cargas. Descanso de 60 s. Termine a série sentindo que conseguiria mais 3 repetições.</div></details>
+ <details class="accordion"><summary>F2 — Construção · semanas 5–8</summary><div class="inside">Objetivo: ganho muscular. 90 s nos exercícios com 4 séries e 60 s nos demais. Termine sentindo que conseguiria mais 1–2 repetições.</div></details>
+ <details class="accordion"><summary>F3 — Força e definição · semanas 9–12</summary><div class="inside">Mais força e intensidade. 2 min nos exercícios com 4 séries e 30–45 s nos demais. Termine sentindo que conseguiria mais 1 repetição. Onde houver PAUSA, segure 2 s na parte mais difícil.</div></details>
+ <details class="accordion"><summary>Progressão de carga</summary><div class="inside">Semana 1: encontre a carga que permita o mínimo de repetições com boa técnica. Semana 2: mesma carga, tente chegar ao máximo. Semana 3: se atingir o máximo em todas as séries, aumente a carga. Semana 4: recuperação, 2 séries por exercício com a carga da semana 1.</div></details>
+ <details class="accordion"><summary>Corrida — fases</summary><div class="inside">F1 Base (1–4): aumentar frequência e distância. F2 Velocidade (5–8): tiros fortes com pausa. F3 Ritmo (9–12): trechos moderados mais longos e finais progressivos nos longões.</div></details>
+ <details class="accordion"><summary>Ritmos de referência</summary><div class="inside">Leve: 7:45–8:15/km. Moderado: 6:55–7:05/km. Forte: 6:15–6:30/km. Meta do ciclo: 5 km em 30–31 min, pace 6:05–6:12/km e cerca de 30 km/semana.</div></details>
+ <details class="accordion"><summary>Testes de 5 km</summary><div class="inside">Aquecer 1 km leve e correr 5 km no máximo, tentando manter o ritmo do início ao fim. A partir do pace do teste: leve = +1:10 a +1:40; moderado = +0:20 a +0:30; forte = −0:20 a −0:05.</div></details>
+ <details class="accordion"><summary>Regras da corrida</summary><div class="inside">Leve é leve. Não pule as semanas de recuperação. Se perder um treino, não compense no dia seguinte. Em caso de dor aguda, articular ou piora, interrompa e informe o treinador. Registre tudo.</div></details>
+ <details class="accordion"><summary>Semana de recuperação</summary><div class="inside">As semanas 4, 8 e 12 reduzem o volume de propósito e incluem teste de 5 km para medir evolução e atualizar os ritmos.</div></details>`;
+}
+function renderPerfil(){
+ document.getElementById("perfil").innerHTML=`<div class="section-title"><h2>Perfil e ciclo</h2></div>
+ <div class="card"><div class="grid2"><div><label>Nome</label><input id="pname" value="${esc(db.settings.name||"Gi")}"></div><div><label>Início do ciclo</label><input id="pstart" type="date" value="${db.startDate||""}"></div></div><button class="primary" style="margin-top:12px" onclick="saveProfile()">Salvar configuração</button></div>
+ <div class="section-title"><h3>Dados</h3></div><div class="card"><p class="small">Os registros ficam salvos no armazenamento deste navegador/aparelho. Use “Exportar backup” antes de trocar de celular ou navegador.</p><div class="row"><button class="secondary" onclick="backup()">Exportar backup JSON</button><label class="secondary" style="cursor:pointer">Importar backup <input type="file" accept=".json" style="display:none" onchange="restore(this.files[0])"></label><button class="ghost" onclick="if(confirm('Apagar todos os dados salvos?')){localStorage.removeItem('meuTreinoGi');location.reload()}">Apagar dados</button></div></div>
+ <div class="section-title"><h3>Instalação</h3></div><div class="card"><p class="small">Esta versão já está preparada como PWA. Depois de publicada em um endereço HTTPS, o navegador poderá oferecer “Instalar aplicativo” / “Adicionar à tela inicial”.</p></div>`;
+}
+function saveProfile(){db.settings.name=document.getElementById("pname").value;db.startDate=document.getElementById("pstart").value;save();toast("Configuração salva");renderHome()}
+function backup(){let blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="meu-treino-backup.json";a.click()}
+function restore(file){if(!file)return;let fr=new FileReader();fr.onload=()=>{try{db=JSON.parse(fr.result);save();location.reload()}catch(e){alert("Backup inválido.")}};fr.readAsText(file)}
+function exportPNG(){
+ let c=document.createElement("canvas"),ctx=c.getContext("2d"),d=key(),s=dailyStats(d),r=rec(d),w=weekForDate(d);
+ c.width=1200;c.height=900;ctx.fillStyle="#f7f2ef";ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle="#765d6d";ctx.font="bold 42px Arial";ctx.fillText("MEU TREINO",70,80);
+ ctx.fillStyle="#3f3540";ctx.font="24px Arial";ctx.fillText(new Date(d+"T12:00:00").toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"long"}),70,125);
+ ctx.font="bold 28px Arial";ctx.fillText(`Semana ${w} • Fase ${phases(w)} — ${phaseName(phases(w))}`,70,180);
+ ctx.font="bold 24px Arial";ctx.fillText("Resumo do dia",70,235);
+ ctx.font="22px Arial";ctx.fillText(`Volume musculação: ${Math.round(s.vol)} kg (kg × repetições)`,90,280);
+ ctx.fillText(`Corrida: ${s.km||0} km`,90,320);ctx.fillText(`Fit Dance: ${s.dance||0} min`,90,360);
+ ctx.font="bold 24px Arial";ctx.fillText("Observações",70,425);ctx.font="20px Arial";
+ let lines=(r.notes||"Sem observações.").match(/.{1,75}/g)||[];lines.slice(0,6).forEach((x,i)=>ctx.fillText(x,90,470+i*32));
+ ctx.fillStyle="#b58b9b";ctx.font="42px Arial";ctx.fillText("🌷",1050,820);
+ let a=document.createElement("a");a.download=`meu-treino-${d}.png`;a.href=c.toDataURL("image/png");a.click();toast("PNG gerado")}
+function render(id){if(id==="home")renderHome();if(id==="treino")renderTreino();if(id==="corrida")renderCorrida();if(id==="dance")renderDance();if(id==="calendario")renderCalendar();if(id==="evolucao")renderEvolution();if(id==="orientacoes")renderOrientacoes();if(id==="perfil")renderPerfil()}
+nav();showView("home");
+</script>
+</body>
+</html>
